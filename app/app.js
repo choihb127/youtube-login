@@ -28,6 +28,7 @@ const home=require('./src/routes/home')
 //앱 셋팅
 app.set('views','./src/views');
 app.set('view engine','ejs');
+app.use(express.static(`${__dirname}/src/public`)); // __dirname=현재위치(app.js위치: /) => /src/public 을 정적경로로 설정
 
 app.use('/',home); // use 는 미들웨어를 등록해주는 메소드
 
