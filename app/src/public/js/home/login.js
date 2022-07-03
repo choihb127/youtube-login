@@ -11,15 +11,13 @@ loginBtn.addEventListener('click',login); // loginBtn이 click 이벤트 발생�
 function login(){
     const req={
         id:id.value, // 선택자 id 의 값을 받아옴
-        psword:id.value // 선택자 psword 의 값을 받아옴
+        psword:psword.value // 선택자 psword 의 값을 받아옴
     };
-    
-    console.log(req);
-    console.log(JSON.stringify(req));
+
     fetch('/login',{
         method: 'POST',
         headers:{
-            'content-Type':'application/json'
+            'Content-Type':'application/json'
         },
         body: JSON.stringify(req)
     });

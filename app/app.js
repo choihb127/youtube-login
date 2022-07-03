@@ -21,9 +21,14 @@ app.listen(3001,()=>{
 //모듈
 const express=require('express');
 const app=express();
+const bodyparser=require('body-parser'); // body 파싱을 위해 body-parser 사용
 
 //라우팅
-const home=require('./src/routes/home')
+const home=require('./src/routes/home');
+
+//미들웨어
+app.use(bodyparser.json()); // body-parser 가 JSON 형식의 데이터를 파싱을 하도록 설정
+app.use(bodyparser.urlencoded({extended:true})); // URL을 통해 전달되는 데이터에 한글,공백 등 문자 표함될 경우 인식이 안되는 문제 해결
 
 //앱 셋팅
 app.set('views','./src/views');
