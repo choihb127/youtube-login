@@ -1,3 +1,6 @@
+//app/app.js
+//서버의 기본 설정 있는 main 파일
+
 "use strict";
 
 /*

@@ -1,3 +1,5 @@
+//app/src/models/UserStorage.js
+//MVC 모델중 M에 해당됨
 'use strict';
 
 class UserStorange{
@@ -12,7 +14,7 @@ class UserStorange{
 
     static getUsers(...fields){ // ... 형태 의미?
         const userinfo=this.#users;
-        // 이하 reduce 이해필요. 아마 반복문?
+        // 이하 reduce 이해필요. 반복문?
         const getinfo=fields.reduce((preval, currentval)=>{ // preval는 초기값, 이후엔 currentval값 들어감
             if (userinfo.hasOwnProperty(currentval)) {
                 preval[currentval]=userinfo[currentval];
@@ -22,6 +24,18 @@ class UserStorange{
         // {}부분이 초기값 설정부분
         return getinfo;
     };
+
+    static getUserInfo(id){
+        const users=this.#users;
+        const idx=users.good_id.indexOf(id); // 매개변수로 받은 id 와 일치하는 인덱스
+        const userKeys=Object.keys(users); // users의 key값만 가져와 배열 생성 => {id,psword,name} 형태
+        const userinfo=userKeys.reduce((newUser,info)=>{
+            newUser[info]=users[info][idx];
+            return newUser;
+        },{});
+
+        return userinfo;
+    }
 }
 
 module.exports=UserStorange;

@@ -1,3 +1,5 @@
+//app/bin/www.js
+//서버 실행 파일
 "use strict";
 
 const app=require('../../app');

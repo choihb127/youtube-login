@@ -1,3 +1,5 @@
+//app/src/routes/home/index.js
+//MVC 모델중 C에 해당됨
 "use strict";
 
 const express=require('express');
