@@ -21,6 +21,12 @@ class User{
         }
         return {success:false,msg:'존재하지 않는 아이디'};
     }
+
+    register(){
+        const profile=this.body;
+        const response=UserStorage.save(profile);
+        return response;
+    }
 }
 
 module.exports={

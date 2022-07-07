@@ -13,11 +13,17 @@ const id=document.querySelector('#id'), // html id 선택자 id를 받아옴
 registerBtn.addEventListener('click',register); // registerBtn이 click 이벤트 발생시 register 실행
 
 function register(){
+    if (!id.value) {
+        return alert('아이디를 입력해주십시오.');
+    };
+    if (psword.value !== confirmPsword.value) {
+            return alert('비밀번호가 일치하지 않습니다.');
+    };
+
     const req={
         id:id.value, // 선택자 id 의 값을 받아옴
         name:name.value,
         psword:psword.value, // 선택자 psword 의 값을 받아옴
-        confirmPsword:confirmPsword.value
     };
 
     fetch('/register',{

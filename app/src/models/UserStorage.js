@@ -8,7 +8,7 @@ class UserStorange{
         // static 선언으로 인스턴스(require) 없이 사용가능
         good_id:['id1','id2','id3'],
         good_psword:['1111','1111','1234'],
-        name:['name1','name2','name3']
+        good_name:['name1','name2','name3']
     };
 
 
@@ -35,6 +35,14 @@ class UserStorange{
         },{});
 
         return userinfo;
+    };
+
+    static save(userinfo){
+        const user=this.#users;
+        user.good_id.push(userinfo.id);
+        user.good_psword.push(userinfo.psword);
+        user.good_name.push(userinfo.name);
+        return {success:true};
     }
 }
 
