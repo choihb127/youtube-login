@@ -9,6 +9,7 @@ const ctrl=require('./home.ctrl');
 
 router.get('/',ctrl.output.home);
 router.get('/login',ctrl.output.login);
+router.get('/register',ctrl.output.register);
 router.post('/login',ctrl.process.login); // 프론트엔드가 전달한 login
 
 module.exports=router;
