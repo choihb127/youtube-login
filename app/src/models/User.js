@@ -9,9 +9,9 @@ class User{
         this.body=body;
     }
 
-    login(){
+    async login(){
         const request=this.body;
-        const {good_id,good_psword}=UserStorage.getUserInfo(request.id); // UserStorage에서 User의 id, psword 부분 받아오기
+        const {good_id,good_psword}=await UserStorage.getUserInfo(request.id); // UserStorage에서 User의 id, psword 부분 받아오기
         //console.log(a);
         if(good_id){ // 아이디 데이터가 존재하는 경우
             if (good_id===request.id && good_psword===request.psword) { // id와 psword 일치할경우
@@ -19,7 +19,7 @@ class User{
             }
             return {success:false,msg:"비밀번호 오류"}; //
         }
-        return {success:false,msg:'존재하지 않는 아이디'};
+        return {success:false,msg:'존재하지 않는 아이디'}; 
     }
 
     register(){
