@@ -1,6 +1,20 @@
-
 {
-   "good_id":["id1","id2","id3"],
-    "good_psword":["1111","1111","1234"],
-    "good_name":["name1","name2","name3"]
+	"good_id": [
+		"id1",
+		"id2",
+		"id3",
+		"make1"
+	],
+	"good_psword": [
+		"1111",
+		"1111",
+		"1234",
+		"123456"
+	],
+	"good_name": [
+		"name1",
+		"name2",
+		"name3",
+		"mkname1"
+	]
 }

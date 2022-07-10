@@ -20,9 +20,11 @@ class UserStorange{
         return userinfo;
     }
 
-    static getUsers(...fields){ // ... 형태 의미?
-        //const userinfo=this.#users;
+    static #getUsers(data,isAll,fields){
+        const userinfo=JSON.parse(data);
+        if(isAll){return userinfo}; // isAll이 true이면 모든값을 불러오기
         // 이하 reduce 이해필요. 반복문?
+        // 그외의 경우 필요한 필드만 불러오기
         const getinfo=fields.reduce((preval, currentval)=>{ // preval는 초기값, 이후엔 currentval값 들어감
             if (userinfo.hasOwnProperty(currentval)) {
                 preval[currentval]=userinfo[currentval];
@@ -31,6 +33,14 @@ class UserStorange{
         },{});
         // {}부분이 초기값 설정부분
         return getinfo;
+    }
+
+    static getUsers(isAll,...fields){ // ... 형태 의미?
+        return fs.readFile('./src/database/users.json')
+        .then((data)=>{
+             return this.#getUsers(data,isAll,fields);
+         })
+         .catch(console.error); 
     };
 
     static getUserInfo(id){
@@ -42,12 +52,16 @@ class UserStorange{
         .catch(console.error);
     }
 
-    static save(userinfo){
-        //const user=this.#users;
-        user.good_id.push(userinfo.id);
-        user.good_psword.push(userinfo.psword);
-        user.good_name.push(userinfo.name);
-        return {success:true};
+    static async save(userinfo){
+        const users=await this.getUsers(true); // 전체 data 불러오기
+        if(users.good_id.includes(userinfo.id)){
+            throw "이미 존재하는 아이디입니다.";
+        }
+            users.good_id.push(userinfo.id);
+            users.good_name.push(userinfo.name);
+            users.good_psword.push(userinfo.psword);
+            fs.writeFile('./src/database/users.json',JSON.stringify(users));
+            return {success:true};
     }
 }
 

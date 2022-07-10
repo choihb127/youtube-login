@@ -22,10 +22,14 @@ class User{
         return {success:false,msg:'존재하지 않는 아이디'}; 
     }
 
-    register(){
+   async register(){
         const profile=this.body;
-        const response=UserStorage.save(profile);
-        return response;
+        try {
+            const response=await UserStorage.save(profile);
+            return response;
+        } catch (err) {
+            return{success:false,msg:err};
+        }
     }
 }
 
