@@ -2,7 +2,8 @@
 //MVC 모델중 M에 해당됨
 'use strict';
 
-const fs=require('fs').promises;
+//const fs=require('fs').promises; // 파일 시스템 형식의 DB 사용 중지
+const db=require('../config/db'); // DB 관련 불러오기
 
 class UserStorange{
  // 임시로 생성된 ID와 PW 리스트 => 등록된 계정
@@ -44,12 +45,13 @@ class UserStorange{
     };
 
     static getUserInfo(id){
-       // const users=this.#users; // database 생성으로 이용하지 않음
-       return fs.readFile('./src/database/users.json')
-       .then((data)=>{
-            return this.#getUserInfo(data,id);
-        })
-        .catch(console.error);
+        return new Promise((resolve,reject)=>{ // promis callback 함수 성공시 resolve 실행, 실패시 reject 실행
+            db.query("SELECT * FROM users WHERE id=?",[id],(err,data)=>{
+                if(err){reject(err)};
+                resolve(data[0]);
+            });
+        });
+        
     }
 
     static async save(userinfo){

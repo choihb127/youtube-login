@@ -11,10 +11,10 @@ class User{
 
     async login(){
         const request=this.body;
-        const {good_id,good_psword}=await UserStorage.getUserInfo(request.id); // UserStorage에서 User의 id, psword 부분 받아오기
+        const {id,psword}=await UserStorage.getUserInfo(request.id); // UserStorage에서 User의 id, psword 부분 받아오기
         //console.log(a);
-        if(good_id){ // 아이디 데이터가 존재하는 경우
-            if (good_id===request.id && good_psword===request.psword) { // id와 psword 일치할경우
+        if(id){ // 아이디 데이터가 존재하는 경우
+            if (id===request.id && psword===request.psword) { // id와 psword 일치할경우
                 return {success:true}; // 로그인 성공
             }
             return {success:false,msg:"비밀번호 오류"}; //
