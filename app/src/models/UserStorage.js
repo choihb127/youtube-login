@@ -10,6 +10,7 @@ class UserStorange{
 // 클래스 변수에 #추가로 private 선언
 // static 선언으로 인스턴스(require) 없이 사용가능
 
+/*
     static #getUserInfo(data,id){
         const users=JSON.parse(data);
         const idx=users.good_id.indexOf(id); // 매개변수로 받은 id 와 일치하는 인덱스
@@ -43,27 +44,27 @@ class UserStorange{
          })
          .catch(console.error); 
     };
+    */
 
     static getUserInfo(id){
         return new Promise((resolve,reject)=>{ // promis callback 함수 성공시 resolve 실행, 실패시 reject 실행
-            db.query("SELECT * FROM users WHERE id=?",[id],(err,data)=>{
-                if(err){reject(err)};
+            const query="SELECT * FROM users WHERE id=?;";
+            db.query(query,[id],(err,data)=>{
+                if(err){reject(`${err}`);}
+                //console.log(data);
                 resolve(data[0]);
             });
         });
-        
     }
 
     static async save(userinfo){
-        const users=await this.getUsers(true); // 전체 data 불러오기
-        if(users.good_id.includes(userinfo.id)){
-            throw "이미 존재하는 아이디입니다.";
-        }
-            users.good_id.push(userinfo.id);
-            users.good_name.push(userinfo.name);
-            users.good_psword.push(userinfo.psword);
-            fs.writeFile('./src/database/users.json',JSON.stringify(users));
-            return {success:true};
+        return new Promise((resolve,reject)=>{ // promis callback 함수 성공시 resolve 실행, 실패시 reject 실행
+            const query="INSERT INTO users(id,name,psword) VALUES(?,?,?);";
+            db.query(query,[userinfo.id,userinfo.name,userinfo.psword],(err)=>{
+                if(err){reject(`${err}`);}
+                resolve({success:true});
+            });
+        });
     }
 }
 
